@@ -10,13 +10,13 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 import CoreData
+import Reachability
 
 class NewsList {
-
      var newsList : [SingleNews] = []
      var bringCashedData : Bool = false
      var cCode : String = ""
-    
+    let reachability = Reachability()!
     
     func getCountryCode(cCode: String) -> String{
       
@@ -42,17 +42,10 @@ class NewsList {
             
         Alamofire.request(apiUrl).responseJSON { (response) in
   
-            print(type(of: response.result.value))
             if let json = response.result.value as? [String:Any], // <- Swift Dictionary
                 let results = json["articles"] as? [[String:Any]]  { // <- Swift Array
                 
-                for result in results {
-                    let mtitle = result["title"] as? String ?? " "
-                    let mauthor = result["author"] as? String ?? " "
-                    let mdesc = result["description"] as? String ?? " "
-                    let mimg = result["urlToImage"] as? String ?? " "
-                    self.newsList.append(SingleNews(title: mtitle, author: mauthor, description: mdesc, imgUrl: mimg))
-                }
+               self.getDownloadedNews(results: results)
             
             completed()
             
@@ -65,14 +58,7 @@ class NewsList {
                     print(type(of: response.result.value))
                     if let json = response.result.value as? [String:Any], // <- Swift Dictionary
                         let results = json["articles"] as? [[String:Any]]  { // <- Swift Array
-                        
-                        for result in results {
-                            let mtitle = result["title"] as? String ?? " "
-                            let mauthor = result["author"] as? String ?? " "
-                            let mdesc = result["description"] as? String ?? " "
-                            let mimg = result["urlToImage"] as? String ?? " "
-                            self.newsList.append(SingleNews(title: mtitle, author: mauthor, description: mdesc, imgUrl: mimg))
-                        }
+                        self.getDownloadedNews(results: results)
                         
                         completed()
                         
@@ -91,6 +77,15 @@ class NewsList {
     }
    
     
+    func getDownloadedNews (results : [[String : Any]]){
+        for result in results {
+            let mtitle = result["title"] as? String ?? " "
+            let mauthor = result["author"] as? String ?? " "
+            let mdesc = result["description"] as? String ?? " "
+            let mimg = result["urlToImage"] as? String ?? " "
+            self.newsList.append(SingleNews(title: mtitle, author: mauthor, description: mdesc, imgUrl: mimg))
+        }
+    }
     
 
     func getChasedNews(){
@@ -157,18 +152,3 @@ class NewsList {
 }
     
 }
-
-
-class Connectivity {
-    class var isConnectedToInternet:Bool {
-        return NetworkReachabilityManager()!.isReachable
-    }
-}
-
-struct SingleNews {
-    var title: String
-    var author: String
-    var description: String
-    var imgUrl: String
-}
-

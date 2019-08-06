@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A29872422FA057300C7060A /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A29872322FA057300C7060A /* Connectivity.swift */; };
+		8A29872722FA05F100C7060A /* SingleNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A29872622FA05F100C7060A /* SingleNews.swift */; };
 		8A9CC19022F7001100F719DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9CC18F22F7001100F719DD /* AppDelegate.swift */; };
 		8A9CC19522F7001100F719DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A9CC19322F7001100F719DD /* Main.storyboard */; };
 		8A9CC19822F7001100F719DD /* News.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8A9CC19622F7001100F719DD /* News.xcdatamodeld */; };
@@ -40,6 +42,8 @@
 
 /* Begin PBXFileReference section */
 		62A4215E2D2CB39E01214861 /* libPods-News.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-News.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A29872322FA057300C7060A /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
+		8A29872622FA05F100C7060A /* SingleNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleNews.swift; sourceTree = "<group>"; };
 		8A9CC18C22F7001100F719DD /* News.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = News.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A9CC18F22F7001100F719DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A9CC19422F7001100F719DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -103,6 +107,22 @@
 			path = "Data Entry ";
 			sourceTree = "<group>";
 		};
+		8A29872222FA053C00C7060A /* Checking Internet */ = {
+			isa = PBXGroup;
+			children = (
+				8A29872322FA057300C7060A /* Connectivity.swift */,
+			);
+			path = "Checking Internet";
+			sourceTree = "<group>";
+		};
+		8A29872522FA05B300C7060A /* Pojo */ = {
+			isa = PBXGroup;
+			children = (
+				8A29872622FA05F100C7060A /* SingleNews.swift */,
+			);
+			path = Pojo;
+			sourceTree = "<group>";
+		};
 		8A9CC18322F7001100F719DD = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +148,8 @@
 		8A9CC18E22F7001100F719DD /* News */ = {
 			isa = PBXGroup;
 			children = (
+				8A29872522FA05B300C7060A /* Pojo */,
+				8A29872222FA053C00C7060A /* Checking Internet */,
 				8A0928BE22F9B09B0086AA8B /* Data Entry  */,
 				8A9CC1C022F76FFD00F719DD /* News List */,
 				8A9CC18F22F7001100F719DD /* AppDelegate.swift */,
@@ -336,8 +358,10 @@
 			files = (
 				8A9CC19822F7001100F719DD /* News.xcdatamodeld in Sources */,
 				8A9CC19022F7001100F719DD /* AppDelegate.swift in Sources */,
+				8A29872422FA057300C7060A /* Connectivity.swift in Sources */,
 				8A9CC1C422F779FD00F719DD /* Extras.swift in Sources */,
 				8AC368F622F9F924005E0A17 /* CountryViewController.swift in Sources */,
+				8A29872722FA05F100C7060A /* SingleNews.swift in Sources */,
 				8A9CC1C222F7703700F719DD /* NewsTableViewController.swift in Sources */,
 				8A9CC1C622F77A5F00F719DD /* NewsModel.swift in Sources */,
 			);

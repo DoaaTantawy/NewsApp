@@ -9,5 +9,6 @@ target 'News' do
 pod 'SwiftyJSON'
 pod 'Alamofire'
 pod 'Kingfisher'
+pod 'ReachabilitySwift'
 
 end

@@ -14,11 +14,18 @@ import CoreData
 class NewsList {
 
      var newsList : [SingleNews] = []
+     var bringCashedData : Bool = false
     
     
     func downloadNews(completed: @escaping DownloadComplete) {
-        if Connectivity.isConnectedToInternet {
-            print("Yes! internet is available.")
+        if !Connectivity.isConnectedToInternet {
+            print("no connection")
+            self.getChasedNews()
+            self.bringCashedData = true
+            completed()
+        }
+        else {
+            self.bringCashedData = false
         Alamofire.request(API_URL).responseJSON { (response) in
  
             print(response.result)
@@ -31,21 +38,81 @@ class NewsList {
                     let mdesc = result["description"] as? String ?? " "
                     let mimg = result["urlToImage"] as? String ?? " "
                     self.newsList.append(SingleNews(title: mtitle, author: mauthor, description: mdesc, imgUrl: mimg))
-                    
-                    print(result["author"] as? String ?? " ")
                 }
             
             completed()
             
         }
     }
+            self.casheNews()
+            
         }
         
-        else {
-            print("no connection")
-            completed()
-        }
+        
+    }
    
+
+    func getChasedNews(){
+        let appDelegate : AppDelegate = UIApplication.shared.delegate as!
+        AppDelegate
+        
+        // 2
+        let manageContext = appDelegate.persistentContainer.viewContext
+        
+        // 3
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "CashedNews")
+        //request.predicate = NSPredicate(format: "age = %@", "12")
+        // request.returnsObjectsAsFaults = false
+        
+        do {
+            let result = try manageContext .fetch(request)
+            for data in result as! [NSManagedObject] {
+                print(data.value(forKey: "newsTitle") as! String)
+                let mtitle = data.value(forKey: "newsTitle") as! String
+                let mauthor = data.value(forKey: "newsAuthor") as! String
+                let mdesc = data.value(forKey: "newsDesc") as! String
+                let mimg = data.value(forKey: "newsImg") as! String
+                    self.newsList.append(SingleNews(title: mtitle, author: mauthor, description: mdesc, imgUrl: mimg))
+            }
+            
+            
+        } catch {
+            
+            print("Failed")
+        }
+    }
+    
+
+    func casheNews(){
+        for i in self.newsList.indices {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            let context = appDelegate.persistentContainer.viewContext
+            
+            let entity = NSEntityDescription.entity(forEntityName: "CashedNews", in: context)
+            let newEntity = NSManagedObject(entity: entity!, insertInto: context)
+            
+            
+            newEntity.setValue(self.newsList[i].title, forKey: "newsTitle")
+            newEntity.setValue(self.newsList[i].author, forKey: "newsAuthor")
+            newEntity.setValue(self.newsList[i].imgUrl, forKey: "newsImg")
+            newEntity.setValue(self.newsList[i].description, forKey: "newsDesc")
+            
+            do{
+                // 5
+                try context.save()
+                
+            }catch let error{
+                
+                print(error)
+            }
+            
+          
+        }
+        
+     
+     
 }
     
 }

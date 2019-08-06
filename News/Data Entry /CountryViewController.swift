@@ -15,6 +15,9 @@ class CountryViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        
+        view.addGestureRecognizer(tap)
     }
     
 
@@ -27,6 +30,10 @@ class CountryViewController: UIViewController {
         // Pass the selected object to the new view controller.
         var newsTableVC : NewsTableViewController = segue.destination as! NewsTableViewController
         newsTableVC.countryCodeUrl = enteredCode.text ?? "us"
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
  
 

@@ -42,7 +42,6 @@ class NewsTableViewController: UITableViewController {
         news.downloadNews {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                print("hello")
             }
             
         }
@@ -100,11 +99,9 @@ class NewsTableViewController: UITableViewController {
 
     func viewDesc(newsDesc : String) {
         
-        let alert = UIAlertController(title: "News Description",
+        let alert = UIAlertController(title: "Description",
                                       message: newsDesc,
                                       preferredStyle: .alert)
-        
-  
         
         let cancelAction = UIAlertAction(title: "Cancel",
                                          style: .cancel)
@@ -116,11 +113,10 @@ class NewsTableViewController: UITableViewController {
 
  
     @objc func refreshNews(sender:AnyObject) {
-        print("Hello World!")
         self.news.downloadNews {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                print("hello")
+                print("Reloaded")
             }
             
         }

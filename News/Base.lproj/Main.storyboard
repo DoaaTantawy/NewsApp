@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Country Code View Controller-->
+        <!--Country View Controller-->
         <scene sceneID="F2I-ri-VoZ">
             <objects>
-                <viewController id="1Ql-n9-SIc" customClass="CountryCodeViewController" customModule="News" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="1Ql-n9-SIc" customClass="CountryViewController" customModule="News" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DGl-EI-rp5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -41,7 +41,6 @@
                                     <color key="titleShadowColor" red="0.59871946597225767" green="0.89627570758733077" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="sendCountryCode:" destination="1Ql-n9-SIc" eventType="touchUpInside" id="eNL-4g-tnV"/>
                                     <segue destination="a6E-pC-lko" kind="show" id="2VX-t6-9qn"/>
                                 </connections>
                             </button>
@@ -51,7 +50,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="1yp-zu-d9O"/>
                     <connections>
-                        <outlet property="countryCode" destination="2eq-uu-ach" id="XzO-Ic-oxb"/>
+                        <outlet property="enteredCode" destination="2eq-uu-ach" id="nay-ad-SZw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWV-Ew-wef" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -123,6 +122,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="W14-fS-uYP"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Kun-3P-mle">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle">
                             <fragment content="Refreshing">

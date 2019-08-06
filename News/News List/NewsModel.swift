@@ -15,9 +15,22 @@ class NewsList {
 
      var newsList : [SingleNews] = []
      var bringCashedData : Bool = false
+     var cCode : String = ""
+    
+    
+    func getCountryCode(cCode: String) -> String{
+      
+        return cCode
+    }
     
     
     func downloadNews(completed: @escaping DownloadComplete) {
+        print(cCode)
+        var apiUrl : String = "https://newsapi.org/v2/top-headlines?country="
+        apiUrl+=cCode
+        apiUrl+="&apiKey=e3d93b527d044aa388a36c863ed6897c"
+        print(apiUrl)
+        
         if !Connectivity.isConnectedToInternet {
             print("no connection")
             self.getChasedNews()
@@ -26,9 +39,10 @@ class NewsList {
         }
         else {
             self.bringCashedData = false
-        Alamofire.request(API_URL).responseJSON { (response) in
- 
-            print(response.result)
+            
+        Alamofire.request(apiUrl).responseJSON { (response) in
+  
+            print(type(of: response.result.value))
             if let json = response.result.value as? [String:Any], // <- Swift Dictionary
                 let results = json["articles"] as? [[String:Any]]  { // <- Swift Array
                 
@@ -43,6 +57,31 @@ class NewsList {
             completed()
             
         }
+            
+            else {
+                
+                Alamofire.request(API_URL).responseJSON { (response) in
+                    
+                    print(type(of: response.result.value))
+                    if let json = response.result.value as? [String:Any], // <- Swift Dictionary
+                        let results = json["articles"] as? [[String:Any]]  { // <- Swift Array
+                        
+                        for result in results {
+                            let mtitle = result["title"] as? String ?? " "
+                            let mauthor = result["author"] as? String ?? " "
+                            let mdesc = result["description"] as? String ?? " "
+                            let mimg = result["urlToImage"] as? String ?? " "
+                            self.newsList.append(SingleNews(title: mtitle, author: mauthor, description: mdesc, imgUrl: mimg))
+                        }
+                        
+                        completed()
+                        
+                    }
+                    
+                }
+                
+            }
+            
     }
             self.casheNews()
             
@@ -51,6 +90,8 @@ class NewsList {
         
     }
    
+    
+    
 
     func getChasedNews(){
         let appDelegate : AppDelegate = UIApplication.shared.delegate as!

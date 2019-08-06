@@ -25,10 +25,12 @@ class HeadlinesCellView: UITableViewCell{
 
 class NewsTableViewController: UITableViewController {
     var news:NewsList!
-    
+    var countryCodeUrl : String = "us"
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(self.countryCodeUrl)
         
         self.refreshControl?.addTarget(self, action:
             #selector(self.refreshNews(sender:)), for: UIControl.Event.valueChanged)
@@ -36,6 +38,7 @@ class NewsTableViewController: UITableViewController {
         self.tableView.rowHeight = UITableView.automaticDimension
         
         news = NewsList()
+        news.cCode = news.getCountryCode(cCode: countryCodeUrl)
         news.downloadNews {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -94,6 +97,7 @@ class NewsTableViewController: UITableViewController {
         self.viewDesc(newsDesc: desc)
     }
     
+
     func viewDesc(newsDesc : String) {
         
         let alert = UIAlertController(title: "News Description",
